@@ -1,0 +1,63 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Reaction constants
+c1 = 0.1
+print("c1:", c1)
+
+# Initial molecular population numbers of S1 and S2
+X1 = 5
+X2 = 10
+print("X1:", X1)
+print("X2:", X2)
+
+# Initialize time variable t and reaction counter n
+t = 0
+n = 0
+print("t:", t)
+print("n:", n)
+
+# Calculate a1 = h1 * c1 where h1 is the total number of all possible 
+# combinations of pairs S1 and S2
+a1 = X1 * X2 * c1
+a = np.array([a1])
+a0 = sum(a)
+
+# Debug
+print("a1:", a1)
+print("a:", a)
+print("a0:", a0)
+
+# Generate random numbers r1 and r2 from the uniform distribution
+r1, r2 = np.random.rand(2)
+print("r1:", r1)
+print("r2:", r2)
+
+# Find the increment T in time as (1/a0) * ln(1/r1)
+T = (1/a0) * np.log(1/r1)
+print("T:", T)
+
+# Choose the next reaction
+mu = 0
+N = r2 * a0 - a[mu]
+
+while N > 0:
+    mu = mu + 1
+    N = N - a[mu]
+
+next_r = mu
+print("next_r:", next_r)
+
+# Define the time of the next reaction
+t = t + T
+print("t:", t)
+
+# Add one to the number of reactions count n
+n = n + 1
+print("n:", n)
+
+# Update the system according to the reaction that was chosen
+X1 = X1 + 1
+X2 = X2 - 1
+print("X1:", X1)
+print("X2:", X2)
